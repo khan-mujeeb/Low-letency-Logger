@@ -1,0 +1,35 @@
+Low-Latency Logger in C++
+
+🧱What are we building? (Big Picture)
+
+📌What is a LOG?
+A log is just text + time. 
+eg 1690000000000 [I] Order received
+
+Imagine this 👇
+
+❌ Normal Logger (Bad for NSE systems)
+Your code → writes to file → waits → slows everything
+
+✅ Low-Latency Logger (What we want)
+Your code → drops message in memory → continues instantly
+                          ↓
+                  background thread writes to file
+
+
+📌 Goal:
+Your main program should never wait for file writing.
+
+🧠 Real-life analogy
+
+You write a note and drop it in a box 📦
+Someone else later collects and files it 🗂️
+You don’t wait → you move on.
+
+
+
+Why We Need a Queue ?
+
+You can’t write to file every time → it’s slow.
+So we store logs in memory first.
+This memory storage is called a queue.
